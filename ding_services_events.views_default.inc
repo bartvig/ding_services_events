@@ -37,6 +37,10 @@ function ding_services_events_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Forbindelse: Entity Reference: Refereret entity */
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['table'] = 'og_membership';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
   /* Felt: Indhold: Titel */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -223,6 +227,35 @@ function ding_services_events_views_default_views() {
   $handler->display->display_options['filters']['field_ding_event_category_tid']['vocabulary'] = 'event_category';
   $handler->display->display_options['filters']['field_ding_event_category_tid']['hierarchy'] = 1;
   $handler->display->display_options['filters']['field_ding_event_category_tid']['error_message'] = FALSE;
+  /* Filterkriterie: Indhold: Titel */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['relationship'] = 'og_group_ref_target_id';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Bibliotek';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'library';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  /* Filterkriterie: Indhold: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'og_group_ref_target_id';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'ding_library' => 'ding_library',
+  );
 
   /* Display: Services */
   $handler = $view->new_display('services', 'Services', 'services_events_list');
@@ -235,6 +268,7 @@ function ding_services_events_views_default_views() {
     t('Sortér efter'),
     t('Stigende'),
     t('Faldende'),
+    t('Indhold entity refereret fra og_group_ref'),
     t('title'),
     t('description'),
     t('category'),
@@ -249,6 +283,7 @@ function ding_services_events_views_default_views() {
     t('title image'),
     t('library'),
     t('Kategori'),
+    t('Bibliotek'),
     t('Services'),
   );
   $export['ding_event_services'] = $view;

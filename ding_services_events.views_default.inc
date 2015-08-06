@@ -48,7 +48,7 @@ function ding_services_events_views_default_views() {
   $handler->display->display_options['fields']['field_ding_event_body']['id'] = 'field_ding_event_body';
   $handler->display->display_options['fields']['field_ding_event_body']['table'] = 'field_data_field_ding_event_body';
   $handler->display->display_options['fields']['field_ding_event_body']['field'] = 'field_ding_event_body';
-  $handler->display->display_options['fields']['field_ding_event_body']['label'] = 'body';
+  $handler->display->display_options['fields']['field_ding_event_body']['label'] = 'description';
   $handler->display->display_options['fields']['field_ding_event_body']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_ding_event_body']['settings'] = array(
     'skip_safe' => 0,
@@ -147,6 +147,15 @@ function ding_services_events_views_default_views() {
     'image_style' => '',
     'image_link' => 'file',
   );
+  /* Felt: Felt: Library */
+  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['label'] = 'library';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Sorteringskriterie: Indhold: Oprettelsesdato */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -191,6 +200,29 @@ function ding_services_events_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'field_data_field_ding_event_date.field_ding_event_date_value2' => 'field_data_field_ding_event_date.field_ding_event_date_value2',
   );
+  /* Filterkriterie: Indhold: Category (field_ding_event_category) */
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['id'] = 'field_ding_event_category_tid';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['table'] = 'field_data_field_ding_event_category';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['field'] = 'field_ding_event_category_tid';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['expose']['operator_id'] = 'field_ding_event_category_tid_op';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['expose']['label'] = 'Kategori';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['expose']['operator'] = 'field_ding_event_category_tid_op';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['expose']['identifier'] = 'field_ding_event_category_tid';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['vocabulary'] = 'event_category';
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['field_ding_event_category_tid']['error_message'] = FALSE;
 
   /* Display: Services */
   $handler = $view->new_display('services', 'Services', 'services_events_list');
@@ -204,7 +236,7 @@ function ding_services_events_views_default_views() {
     t('Stigende'),
     t('Faldende'),
     t('title'),
-    t('body'),
+    t('description'),
     t('category'),
     t('dato'),
     t('files'),
@@ -215,6 +247,8 @@ function ding_services_events_views_default_views() {
     t('price'),
     t('tags'),
     t('title image'),
+    t('library'),
+    t('Kategori'),
     t('Services'),
   );
   $export['ding_event_services'] = $view;
